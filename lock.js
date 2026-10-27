@@ -5,6 +5,12 @@
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
   const unb64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
   const box = document.getElementById('lock');
+  // Офлайн-кэш: проверить обновление при каждом запуске и один раз перезагрузиться, когда пришла новая версия.
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    const had = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register('sw.js').then(r => r.update()).catch(() => {});
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (had && !window.__petelkaReloaded) { window.__petelkaReloaded = true; location.reload(); } });
+  }
 
   async function decrypt(pack, key) {
     const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(pack.iv) }, key, b64(pack.data));
