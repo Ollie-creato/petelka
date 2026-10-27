@@ -25,6 +25,8 @@
   function showForm(pack) {
     box.hidden = false;
     const form = box.querySelector('form'), input = box.querySelector('input'), err = box.querySelector('.err');
+    const eye = box.querySelector('.eye');
+    if (eye) eye.addEventListener('click', () => { const show = input.type === 'password'; input.type = show ? 'text' : 'password'; eye.setAttribute('aria-pressed', String(show)); eye.setAttribute('aria-label', show ? 'Скрыть пароль' : 'Показать пароль'); input.focus(); });
     input.focus();
     form.addEventListener('submit', async e => {
       e.preventDefault();

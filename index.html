@@ -254,7 +254,11 @@ td.n{font-family:var(--f-mono);text-align:right;white-space:nowrap;letter-spacin
 #lock form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;text-align:center}
 #lock .t{font-size:34px;font-weight:700;margin-bottom:12px}
 #lock input,#lock button{font:inherit;font-size:17px;height:52px;padding:0 18px;border-radius:14px;border:0;outline:none}
-#lock input{background:var(--surface,#fff);color:inherit}
+#lock input{background:var(--surface,#fff);color:inherit;width:100%;padding-right:52px}
+#lock .pw{position:relative}
+#lock .eye{position:absolute;right:4px;top:4px;width:44px;height:44px;padding:0;border-radius:22px;background:none;color:var(--fg2,#8a8a8e);display:grid;place-items:center}
+#lock .eye[aria-pressed=true]{color:var(--accent,#007AFF)}
+#lock .hint{font-size:13px;color:var(--fg2,#8a8a8e);line-height:1.4}
 #lock button{background:var(--accent,#007AFF);color:#fff;font-weight:600;border-radius:26px}
 #lock .err{color:var(--danger,#FF3B30);min-height:1.2em;font-size:15px}
 @media (prefers-color-scheme:dark){#lock{background:var(--bg,#000);color:var(--fg,#fff)}}
@@ -264,8 +268,8 @@ td.n{font-family:var(--f-mono);text-align:right;white-space:nowrap;letter-spacin
 <div id="app"></div>
 <div id="lock" hidden>
 <form autocomplete="on"><div class="t">Петелька</div>
-<input type="password" name="password" autocomplete="current-password" placeholder="Пароль" required>
-<button type="submit">Войти</button><div class="err"></div></form></div>
+<div class="pw"><input type="password" name="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Пароль" required><button type="button" class="eye" aria-label="Показать пароль" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+<button type="submit">Войти</button><div class="err"></div><div class="hint">Пароль — тот, что вводили при последней сборке. Учитываются регистр и раскладка.</div></form></div>
 <input type="file" id="file" hidden>
 <script src="lock.js"></script>
 </body>
